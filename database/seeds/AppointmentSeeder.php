@@ -1,6 +1,7 @@
 <?php
 
 use App\Appointment;
+use App\Report;
 use Illuminate\Database\Seeder;
 
 class AppointmentSeeder extends Seeder
@@ -12,6 +13,11 @@ class AppointmentSeeder extends Seeder
      */
     public function run()
     {
-        factory(Appointment::class, 50)->create();
+        factory(Appointment::class, 50)->create()
+            ->each(function (Appointment $appointment) {
+                $reports = factory(Report::class, 'with-student', 3)->create();
+
+                $appointment->reports()->saveMany($reports);
+            });
     }
 }

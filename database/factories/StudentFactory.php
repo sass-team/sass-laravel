@@ -11,11 +11,11 @@ use Illuminate\Database\Eloquent\Factory;
 $factory->define(Student::class, function (Faker $faker) {
 
     return [
-        'first_name'             => $faker->firstName,
-        'last_name'              => $faker->lastName,
+        'first_name'             => 'First Name: ' . $faker->firstName,
+        'last_name'              => 'Last Name: ' . $faker->lastName,
         'email'                  => $faker->unique()->safeEmail,
-        'student_identification' => str_random(10),
-        'mobile_number'          => $faker->phoneNumber,
+        'student_identification' => 'ID: ' . str_random(10),
+        'mobile_number'          => 'Phone number: ' . $faker->phoneNumber,
         'ci'                     => $faker->randomFloat(2, 0, 4),
         'credits'                => $faker->numberBetween(0, 2000),
         'major_id'               => function () {

@@ -5,10 +5,11 @@ namespace Tests\Unit\Appointment;
 use App\Appointment;
 use App\Course;
 use App\Instructor;
-use App\Student;
 use App\Term;
 use App\User;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class AppointmentTest extends TestCase
@@ -32,9 +33,11 @@ class AppointmentTest extends TestCase
     }
 
     /** @test */
-    public function an_appointment_has_a_student()
+    public function an_appointment_has_many_students()
     {
-        $this->assertInstanceOf(Student::class, $this->appointment->student);
+        $this->assertInstanceOf(
+            Collection::class, $this->appointment->students
+        );
     }
 
     /** @test */
@@ -61,5 +64,11 @@ class AppointmentTest extends TestCase
     public function an_appointment_has_a_term()
     {
         $this->assertInstanceOf(Term::class, $this->appointment->term);
+    }
+
+    /** @test */
+    public function an_appointment_has_many_reports()
+    {
+        $this->assertInstanceOf(HasMany::class, $this->appointment->reports());
     }
 }

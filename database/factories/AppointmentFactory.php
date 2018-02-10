@@ -15,7 +15,7 @@ $factory->define(Appointment::class, function (Faker $faker) {
     return [
         'starts_at'     => $faker->dateTime,
         'ends_at'       => $faker->dateTime,
-        'notes'         => $faker->sentence,
+        'notes'         => 'Notes: ' . $faker->sentence,
         'creator_id'    => function () {
             return factory(User::class, 'admin')->create()->id;
         },

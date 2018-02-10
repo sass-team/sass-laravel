@@ -10,10 +10,11 @@ class Appointment extends Model
     use HasAttributes;
 
     protected $dates = ['created_at', 'updated_at', 'starts_at', 'ends_at'];
+    protected $fillable = ['starts_at', 'ends_at', 'notes'];
 
-    public function student()
+    public function students()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsToMany(Student::class);
     }
 
     public function creator()
@@ -39,5 +40,10 @@ class Appointment extends Model
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
     }
 }

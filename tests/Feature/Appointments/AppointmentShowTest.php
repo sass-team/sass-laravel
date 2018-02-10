@@ -8,6 +8,7 @@ namespace Tests\Feature\Appointments;
 
 
 use App\Appointment;
+use App\Report;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -16,34 +17,52 @@ class AppointmentShowTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /** @test */
-    public function an_admin_can_browser_an_appointment()
+    /** @var Appointment */
+    private $appointment;
+
+    public function setUp()
     {
-        $appointment = factory(Appointment::class)->create();
+        parent::setUp();
 
-        $admin = factory(User::class, 'admin')->create();
-
-        $response = $this->actingAs($admin)
-            ->get('/appointments/' . $appointment->id);
-
-        $response
-            ->assertStatus(200)
-            ->assertSee($appointment->duration)
-            ->assertSee($appointment->notes)
-            ->assertSee($appointment->creator->name)
-            ->assertSee($appointment->tutor->name)
-            ->assertSee($appointment->student->name)
-            ->assertSee($appointment->instructor->name)
-            ->assertSee($appointment->term->name);
+        $this->appointment = factory(Appointment::class)->create();
     }
 
     /** @test */
-    public function a_guest_is_unable_to_brows_an_appointment()
+    public function an_admin_can_browser_an_appointment()
     {
-        $appointment = factory(Appointment::class)->create();
+        $admin = $this->setupAdmin();
 
-        $response = $this->get('/appointments/' . $appointment->id);
+        $this->actingAs($admin)
+            ->get('/appointments/' . $this->appointment->id)
+            ->assertStatus(200)
+            ->assertSee($this->appointment->duration);
+    }
 
-        $response->assertStatus(302)->assertRedirect('/login');
+    /** @return User */
+    protected function setupAdmin()
+    {
+        return factory(User::class, 'admin')->create();
+    }
+
+    /** @test */
+    public function a_guest_is_unable_to_browse_an_appointment()
+    {
+        $this->get('/appointments/' . $this->appointment->id)
+            ->assertStatus(302)
+            ->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function an_admin_can_read_reports_associated_with_an_appointment()
+    {
+        $admin = $this->setupAdmin();
+
+        $report = factory(Report::class)->create();
+
+        $this->appointment->reports()->save($report);
+
+        $this->actingAs($admin)
+            ->get('/appointments/' . $this->appointment->id)
+            ->assertSee($report->topic);
     }
 }
