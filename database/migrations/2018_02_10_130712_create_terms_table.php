@@ -14,11 +14,17 @@ class CreateTermsTable extends Migration
             $table->string('name');
             $table->dateTime('starts_at');
             $table->dateTime('ends_at');
+            $table->integer('creator_id')->unsigned();
+            $table->foreign('creator_id')->references('id')->on('users');
         });
     }
 
     public function down()
     {
+        Schema::table('students', function (Blueprint $table) {
+            $table->dropForeign(['creator_id']);
+        });
+
         Schema::dropIfExists('terms');
     }
 }

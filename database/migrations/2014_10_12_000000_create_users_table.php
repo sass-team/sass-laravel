@@ -18,11 +18,17 @@ class CreateUsersTable extends Migration
             $table->enum('role', User::$roles);
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('creator_id')->nullable()->unsigned();
+            $table->foreign('creator_id')->references('id')->on('users');
         });
     }
 
     public function down()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['creator_id']);
+        });
+
         Schema::dropIfExists('users');
     }
 }

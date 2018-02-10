@@ -1,6 +1,9 @@
 <?php
 
 use App\Appointment;
+use App\Instructor;
+use App\Student;
+use App\Term;
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
@@ -9,17 +12,24 @@ use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Appointment::class, function (Faker $faker) {
     return [
-        'starts_at' => $faker->dateTime,
-        'ends_at'   => $faker->dateTime,
-        'notes'     => $faker->sentence,
-        'creator_id'   => function () {
-            return factory(User::class)->create()->id;
+        'starts_at'     => $faker->dateTime,
+        'ends_at'       => $faker->dateTime,
+        'notes'         => $faker->sentence,
+        'creator_id'    => function () {
+            return factory(User::class, 'admin')->create()->id;
         },
-        'tutor_id'   => function () {
-            return factory(User::class)->create()->id;
+        'tutor_id'      => function () {
+            return factory(User::class, 'tutor')->create()->id;
         },
-        'student_id'   => function () {
-            return factory(User::class)->create()->id;
+        'student_id'    => function () {
+            return factory(Student::class)->create()->id;
+        },
+        'instructor_id' => function () {
+            return factory(Instructor::class)->create()->id;
+        },
+        'term_id'       => function () {
+
+            return factory(Term::class)->create()->id;
         },
     ];
 });
