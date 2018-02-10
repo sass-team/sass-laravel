@@ -12,4 +12,11 @@ class AppointmentController extends Controller
 
         return view('appointments.index', compact('appointments'));
     }
+
+    public function show($id)
+    {
+        $appointment = Appointment::query()->findOrFail($id);
+
+        return view('appointments.show', compact('appointment'));
+    }
 }

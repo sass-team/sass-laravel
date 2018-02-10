@@ -8,4 +8,10 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/appointments', 'AppointmentController@index');
+
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/appointments', 'AppointmentController@index');
+    Route::get('/appointments/{id}', 'AppointmentController@show');
+});
+

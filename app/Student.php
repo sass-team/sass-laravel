@@ -3,11 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\SASS\Student\StudentAttributes as HasAttributes;
 
 class Student extends Model
 {
-    public function getNameAttribute()
-    {
-        return sprintf('%s %s', $this->first_name, $this->last_name);
-    }
+    use HasAttributes;
 }
