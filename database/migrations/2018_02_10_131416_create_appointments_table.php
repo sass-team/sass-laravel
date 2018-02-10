@@ -24,6 +24,10 @@ class CreateAppointmentsTable extends Migration
             $table->foreign('instructor_id')->references('id')->on('instructors');
             $table->integer('term_id')->unsigned();
             $table->foreign('term_id')->references('id')->on('terms');
+            $table->integer('course_id')->unsigned();
+            $table->foreign('course_id')->references('id')->on('terms');
+            $table->integer('modifier_id')->nullable()->unsigned();
+            $table->foreign('modifier_id')->references('id')->on('users');
         });
     }
 
@@ -35,6 +39,8 @@ class CreateAppointmentsTable extends Migration
             $table->dropForeign(['student_id']);
             $table->dropForeign(['instructor_id']);
             $table->dropForeign(['term_id']);
+            $table->dropForeign(['course_id']);
+            $table->dropForeign(['modifier_id']);
         });
 
         Schema::dropIfExists('appointments');

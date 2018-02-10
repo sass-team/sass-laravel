@@ -1,6 +1,7 @@
 <?php
 
 use App\Appointment;
+use App\Course;
 use App\Instructor;
 use App\Student;
 use App\Term;
@@ -17,6 +18,9 @@ $factory->define(Appointment::class, function (Faker $faker) {
         'notes'         => $faker->sentence,
         'creator_id'    => function () {
             return factory(User::class, 'admin')->create()->id;
+        },
+        'course_id'     => function () {
+            return factory(Course::class)->create()->id;
         },
         'tutor_id'      => function () {
             return factory(User::class, 'tutor')->create()->id;

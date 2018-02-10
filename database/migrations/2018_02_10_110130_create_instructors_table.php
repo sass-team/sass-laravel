@@ -15,6 +15,8 @@ class CreateInstructorsTable extends Migration
             $table->string('last_name');
             $table->integer('creator_id')->unsigned();
             $table->foreign('creator_id')->references('id')->on('users');
+            $table->integer('modifier_id')->nullable()->unsigned();
+            $table->foreign('modifier_id')->references('id')->on('users');
         });
     }
 
@@ -22,6 +24,7 @@ class CreateInstructorsTable extends Migration
     {
         Schema::table('instructors', function (Blueprint $table) {
             $table->dropForeign(['creator_id']);
+            $table->dropForeign(['modifier_id']);
         });
 
         Schema::dropIfExists('instructors');

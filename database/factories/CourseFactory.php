@@ -9,10 +9,13 @@ use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Course::class, function (Faker $faker) {
     return [
-        'code' => $faker->dateTime,
-        'name'   => $faker->dateTime,
-        'user_id'   => function () { // creator
-            return factory(User::class)->create()->id;
+        'code'        => $faker->uuid,
+        'name'        => $faker->word,
+        'creator_id'  => function () {
+            return factory(User::class, 'admin')->create()->id;
+        },
+        'modifier_id' => function () {
+            return factory(User::class, 'admin')->create()->id;
         },
     ];
 });

@@ -3,7 +3,7 @@
 use App\Appointment;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class AppointmentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(AppointmentSeeder::class);
+        factory(Appointment::class, 50)->create();
     }
 }

@@ -19,4 +19,12 @@ trait AppointmentAttributes
             $appointment->ends_at
         );
     }
+
+    public function getPathAttribute()
+    {
+        /** @var \App\Appointment $appointment */
+        $appointment = $this;
+
+        return '/appointments/' . $appointment->id;
+    }
 }

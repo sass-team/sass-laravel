@@ -35,4 +35,9 @@ class Appointment extends Model
     {
         return $this->belongsTo(Term::class);
     }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

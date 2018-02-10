@@ -3,6 +3,7 @@
 namespace Tests\Unit\Appointment;
 
 use App\Appointment;
+use App\Course;
 use App\Instructor;
 use App\Student;
 use App\Term;
@@ -22,6 +23,12 @@ class AppointmentTest extends TestCase
         parent::setUp();
 
         $this->appointment = factory(Appointment::class)->create();
+    }
+
+    /** @test */
+    public function an_appointment_has_a_course()
+    {
+        $this->assertInstanceOf(Course::class, $this->appointment->course);
     }
 
     /** @test */

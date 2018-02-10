@@ -23,10 +23,15 @@ class AppointmentIndexTest extends TestCase
         $response = $this->actingAs($admin)->get('/appointments');
 
         $response->assertStatus(200)
-            ->assertSee((string)$appointments->get(0)->starts_at)
-            ->assertSee($appointments->get(0)->student->name)
-            ->assertSee((string)$appointments->get(1)->starts_at)
-            ->assertSee($appointments->get(1)->student->name);
+            ->assertSee($appointments->get(0)->course->name)
+            ->assertSee($appointments->get(0)->duration)
+            ->assertSee($appointments->get(0)->notes)
+            ->assertSee($appointments->get(0)->path)
+            ->assertSee($appointments->get(1)->course->name)
+            ->assertSee($appointments->get(1)->duration)
+            ->assertSee($appointments->get(1)->notes)
+            ->assertSee($appointments->get(1)->path);
+
     }
 
     /** @test */

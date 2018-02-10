@@ -24,6 +24,8 @@ class CreateStudentsTable extends Migration
             $table->foreign('major_id')->references('id')->on('majors');
             $table->integer('creator_id')->unsigned();
             $table->foreign('creator_id')->references('id')->on('users');
+            $table->integer('modifier_id')->nullable()->unsigned();
+            $table->foreign('modifier_id')->references('id')->on('users');
         });
     }
 
@@ -31,6 +33,7 @@ class CreateStudentsTable extends Migration
     {
         Schema::table($this->table, function (Blueprint $table) {
 //            $table->dropForeign(['creator_id']); fails :/
+//            $table->dropForeign(['modifier_id']);
             $table->dropForeign(['major_id']);
         });
 

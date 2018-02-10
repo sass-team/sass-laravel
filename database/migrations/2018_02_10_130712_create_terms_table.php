@@ -16,6 +16,8 @@ class CreateTermsTable extends Migration
             $table->dateTime('ends_at');
             $table->integer('creator_id')->unsigned();
             $table->foreign('creator_id')->references('id')->on('users');
+            $table->integer('modifier_id')->nullable()->unsigned();
+            $table->foreign('modifier_id')->references('id')->on('users');
         });
     }
 
@@ -23,6 +25,7 @@ class CreateTermsTable extends Migration
     {
         Schema::table('students', function (Blueprint $table) {
             $table->dropForeign(['creator_id']);
+            $table->dropForeign(['modifier_id']);
         });
 
         Schema::dropIfExists('terms');
