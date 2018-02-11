@@ -3,9 +3,10 @@
 namespace Tests\Unit\Appointment;
 
 use App\Appointment;
-use Tests\TestCase;
+use App\Model;
+use Tests\Unit\UnitTestCase;
 
-class AppointmentAttributesTest extends TestCase
+class AppointmentAttributesTest extends UnitTestCase
 {
     /** @var  Appointment */
     protected $appointment;
@@ -20,6 +21,7 @@ class AppointmentAttributesTest extends TestCase
     /** @test */
     public function an_appointment_has_duration()
     {
+        $this->withoutEvents();
         $expectedDuration = sprintf(
             '%s - %s',
             $this->appointment->starts_at,
@@ -35,5 +37,13 @@ class AppointmentAttributesTest extends TestCase
         $expectedPath = '/appointments/' . $this->appointment->id;
 
         $this->assertEquals($expectedPath, $this->appointment->path);
+    }
+
+    /** @test */
+    public function an_appointment_has_reports_path()
+    {
+        $expectedPath = '/appointments/' . $this->appointment->id . '/reports';
+
+        $this->assertEquals($expectedPath, $this->appointment->reportsPath);
     }
 }

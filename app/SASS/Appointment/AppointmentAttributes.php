@@ -27,4 +27,12 @@ trait AppointmentAttributes
 
         return '/appointments/' . $appointment->id;
     }
+
+    public function getReportsPathAttribute()
+    {
+        /** @var \App\Appointment $appointment */
+        $appointment = $this;
+
+        return $appointment->path . '/reports';
+    }
 }

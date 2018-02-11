@@ -3,12 +3,10 @@
 namespace App;
 
 use App\SASS\Appointment\AppointmentAttributes as HasAttributes;
-use App\SASS\HasCreatorAndModifier;
-use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    use HasAttributes, HasCreatorAndModifier;
+    use HasAttributes;
 
     protected $dates = ['created_at', 'updated_at', 'starts_at', 'ends_at'];
     protected $fillable = ['starts_at', 'ends_at', 'notes'];

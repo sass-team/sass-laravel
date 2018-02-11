@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 class Report extends Model
 {
     protected $fillable = ['topic', 'other', 'student_concerns',
@@ -33,15 +31,5 @@ class Report extends Model
     public function student()
     {
         return $this->belongsTo(Student::class);
-    }
-
-    public function creator()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function modifier()
-    {
-        return $this->belongsTo(User::class);
     }
 }

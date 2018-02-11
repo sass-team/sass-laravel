@@ -7,10 +7,10 @@
 namespace App\SASS;
 
 
+use App\Model;
 use App\User;
-use Illuminate\Database\Eloquent\Model;
 
-trait HasCreatorAndModifier
+trait CommonAttributes
 {
     public function creator()
     {

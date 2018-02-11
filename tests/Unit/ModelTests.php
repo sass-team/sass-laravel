@@ -11,13 +11,14 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
 
-trait HasCreatorAndModifierTests
+trait ModelTests
 {
     /** @test */
     public function a_model_has_a_creator()
     {
         /** @var TestCase $test */
         $test = $this;
+
         /** @var Model $model */
         $model = $this->model;
 

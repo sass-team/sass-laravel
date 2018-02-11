@@ -9,15 +9,11 @@ namespace Tests\Unit;
 use App\Appointment;
 use App\Report;
 use App\Student;
-use App\User;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\TestCase;
 
-class ReportTest extends TestCase
+class ReportTest extends UnitTestCase
 {
-    use HasCreatorAndModifierTests;
+    use ModelTests;
 
     /** @var  Report $model */
     private $model;

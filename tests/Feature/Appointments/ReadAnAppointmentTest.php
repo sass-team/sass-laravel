@@ -10,9 +10,10 @@ namespace Tests\Feature\Appointments;
 use App\Appointment;
 use App\Report;
 use App\User;
+use Illuminate\Auth\AuthenticationException;
 use Tests\TestCase;
 
-class AppointmentShowTest extends TestCase
+class ReadAnAppointmentTest extends TestCase
 {
     /** @var Appointment */
     private $appointment;
@@ -44,6 +45,8 @@ class AppointmentShowTest extends TestCase
     /** @test */
     public function a_guest_is_unable_to_browse_an_appointment()
     {
+        $this->expectException(AuthenticationException::class);
+
         $this->get('/appointments/' . $this->appointment->id)
             ->assertStatus(302)
             ->assertRedirect('/login');

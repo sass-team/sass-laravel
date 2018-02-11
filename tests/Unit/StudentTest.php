@@ -8,18 +8,27 @@ namespace Tests\Unit;
 
 
 use App\Student;
-use App\User;
-use Tests\TestCase;
+use Illuminate\Database\Eloquent\Model;
 
-class StudentTest extends TestCase
+class StudentTest extends UnitTestCase
 {
+    use ModelTests;
+
+    /** @var Model $model */
+    private $model;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->model = factory(Student::class)->create();
+    }
+
     /** @test */
     public function a_student_has_a_name()
     {
-        $student = factory(Student::class)->create();
+        $expectedName = $this->model->first_name . ' ' . $this->model->last_name;
 
-        $expectedName = $student->first_name . ' ' . $student->last_name;
-
-        $this->assertEquals($expectedName, $student->name);
+        $this->assertEquals($expectedName, $this->model->name);
     }
 }

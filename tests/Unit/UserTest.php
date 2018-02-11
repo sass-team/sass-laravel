@@ -6,19 +6,29 @@
 
 namespace Tests\Unit;
 
-
 use App\User;
-use Tests\TestCase;
 
-class UserTest extends TestCase
+class UserTest extends UnitTestCase
 {
+    use ModelTests;
+
+    /** @var  User $user */
+    private $model;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->model = factory(User::class, 'secretary')->create();
+    }
+
     /** @test */
     public function a_user_has_a_name()
     {
-        $user = factory(User::class)->create();
+        $expectedName = $this->model->first_name;
 
-        $expectedName = $user->first_name . ' ' . $user->last_name;
+        $expectedName .= ' ' . $this->model->last_name;
 
-        $this->assertEquals($expectedName, $user->name);
+        $this->assertEquals($expectedName, $this->model->name);
     }
 }

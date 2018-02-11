@@ -7,12 +7,11 @@
 namespace Tests\Unit;
 
 use App\Instructor;
-use App\User;
 use Tests\TestCase;
 
-class InstructorTest extends TestCase
+class InstructorTest extends UnitTestCase
 {
-    use HasCreatorAndModifierTests;
+    use ModelTests;
 
     /** @var  Instructor */
     private $model;

@@ -4,10 +4,11 @@ namespace Tests\Feature\Appointments;
 
 use App\Appointment;
 use App\User;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
-class AppointmentIndexTest extends TestCase
+class ReadAppointmentsListTest extends TestCase
 {
     /** @test */
     public function an_admin_can_browse_all_appointments()
@@ -34,6 +35,8 @@ class AppointmentIndexTest extends TestCase
     /** @test */
     public function a_guest_is_unable_to_browse_appointments()
     {
+        $this->expectException(AuthenticationException::class);
+
         $response = $this->get('/appointments');
 
         $response->assertStatus(302)->assertRedirect('/login');

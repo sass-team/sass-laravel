@@ -9,9 +9,9 @@ namespace Tests\Unit;
 use App\Course;
 use Tests\TestCase;
 
-class CourseTest extends TestCase
+class CourseTest extends UnitTestCase
 {
-    use HasCreatorAndModifierTests;
+    use ModelTests;
 
     /** @var  Course */
     private $model;

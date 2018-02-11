@@ -10,12 +10,12 @@ use App\User;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
-use Tests\TestCase;
-use Tests\Unit\HasCreatorAndModifierTests;
+use Tests\Unit\ModelTests;
+use Tests\Unit\UnitTestCase;
 
-class AppointmentTest extends TestCase
+class AppointmentTest extends UnitTestCase
 {
-    use HasCreatorAndModifierTests;
+    use ModelTests;
 
     /** @var  Appointment */
     protected $model;

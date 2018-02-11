@@ -18,15 +18,19 @@ $factory->define(User::class, function (Faker $faker) {
 
 $factory->defineAs(User::class, 'admin', function (Faker $faker) {
     return factory(User::class)->make([
-        'role'       => 'admin',
-        'creator_id' => null,
+        'role'        => 'admin',
+        'creator_id'  => null,
+        'modifier_id' => null,
     ])->makeVisible('password')->toArray();
 });
 
 $factory->defineAs(User::class, 'tutor', function (Faker $faker) {
     return factory(User::class)->make([
-        'role'       => 'tutor',
-        'creator_id' => function () {
+        'role'        => 'tutor',
+        'creator_id'  => function () {
+            return factory(User::class, 'admin')->create()->id;
+        },
+        'modifier_id' => function () {
             return factory(User::class, 'admin')->create()->id;
         },
     ])->makeVisible('password')->toArray();
@@ -34,8 +38,11 @@ $factory->defineAs(User::class, 'tutor', function (Faker $faker) {
 
 $factory->defineAs(User::class, 'secretary', function (Faker $faker) {
     return factory(User::class)->make([
-        'role'       => 'secretary',
-        'creator_id' => function () {
+        'role'        => 'secretary',
+        'creator_id'  => function () {
+            return factory(User::class, 'admin')->create()->id;
+        },
+        'modifier_id' => function () {
             return factory(User::class, 'admin')->create()->id;
         },
     ])->makeVisible('password')->toArray();
