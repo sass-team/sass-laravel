@@ -6,7 +6,6 @@
 
 namespace Tests\Unit;
 
-
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;

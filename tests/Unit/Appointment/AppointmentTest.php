@@ -3,75 +3,44 @@
 namespace Tests\Unit\Appointment;
 
 use App\Appointment;
-use App\Course;
-use App\Instructor;
-use App\Term;
+use App\Report;
+use App\Student;
 use App\User;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
-use Tests\Unit\ModelTests;
+use Illuminate\Support\Facades\Auth;
 use Tests\Unit\UnitTestCase;
 
 class AppointmentTest extends UnitTestCase
 {
-    use ModelTests;
-
-    /** @var  Appointment */
-    protected $model;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->model = factory(Appointment::class)->create();
-    }
-
     /** @test */
-    public function an_appointment_has_a_course()
+    public function an_appointment_can_add_a_report()
     {
-        $this->assertInstanceOf(Course::class, $this->model->course);
-    }
+        /** @var Appointment $appointment */
+        $appointment = factory(Appointment::class)->create();
 
-    /** @test */
-    public function an_appointment_has_many_students()
-    {
-        $this->assertInstanceOf(
-            BelongsToMany::class, $this->model->students()
-        );
+        /** @var Student $report */
+        $student = factory(Student::class)->create();
 
-        $this->assertInstanceOf(
-            Collection::class, $this->model->students
-        );
-    }
+        /** @var Report $report */
+        $report = factory(Report::class, 'without-relations')
+            ->make(['student_id' => $student->id]);
 
-    /** @test */
-    public function an_appoint_has_an_instructor()
-    {
-        $this->assertInstanceOf(
-            Instructor::class, $this->model->instructor
-        );
-    }
+        $admin = factory(User::class, 'admin')->create();
 
-    /** @test */
-    public function an_appointment_has_a_tutor()
-    {
-        $this->assertInstanceOf(User::class, $this->model->tutor);
-    }
+        Auth::login($admin);
 
-    /** @test */
-    public function an_appointment_has_a_term()
-    {
-        $this->assertInstanceOf(Term::class, $this->model->term);
-    }
+        $appointment->addReport($report->toArray());
 
-    /** @test */
-    public function an_appointment_has_many_reports()
-    {
-        $this->assertInstanceOf(HasMany::class, $this->model->reports());
-
-        $this->assertInstanceOf(
-            Collection::class, $this->model->reports
-        );
+        $this->assertDatabaseHas('reports', [
+            'appointment_id'                  => $appointment->id,
+            'student_id'                      => $student->id,
+            'creator_id'                      => $admin->id,
+            'modifier_id'                     => $admin->id,
+            'topic'                           => $report->topic,
+            'other'                           => $report->other,
+            'student_concerns'                => $report->student_concerns,
+            'additional_comments'             => $report->additional_comments,
+            'relevant_feedback_or_guidelines' =>
+                $report->relevant_feedback_or_guidelines,
+        ]);
     }
 }

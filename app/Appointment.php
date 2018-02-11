@@ -3,6 +3,7 @@
 namespace App;
 
 use App\SASS\Appointment\AppointmentAttributes as HasAttributes;
+use Illuminate\Support\Facades\Auth;
 
 class Appointment extends Model
 {
@@ -39,5 +40,22 @@ class Appointment extends Model
     public function reports()
     {
         return $this->hasMany(Report::class);
+    }
+
+    public function addReport($data)
+    {
+        /** @var User $user */
+        $user = Auth::user();
+        /** @var Report $report */
+        $report = new Report($data);
+        /** @var Student $student */
+        $student = Student::query()->findOrFail($data['student_id']);
+
+        $report->appointment()->associate($this);
+        $report->student()->associate($student);
+        $report->creator()->associate($user);
+        $report->modifier()->associate($user);
+
+        $report->save();
     }
 }

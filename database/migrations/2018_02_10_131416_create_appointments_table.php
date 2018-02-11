@@ -20,8 +20,6 @@ class CreateAppointmentsTable extends Migration
             $table->foreign('modifier_id')->references('id')->on('users');
             $table->integer('tutor_id')->unsigned();
             $table->foreign('tutor_id')->references('id')->on('users');
-            $table->integer('student_id')->unsigned();
-            $table->foreign('student_id')->references('id')->on('students');
             $table->integer('instructor_id')->unsigned();
             $table->foreign('instructor_id')->references('id')->on('instructors');
             $table->integer('term_id')->unsigned();
@@ -37,7 +35,6 @@ class CreateAppointmentsTable extends Migration
             $table->dropForeign(['modifier_id']);
             $table->dropForeign(['creator_id']);
             $table->dropForeign(['tutor_id']);
-            $table->dropForeign(['student_id']);
             $table->dropForeign(['instructor_id']);
             $table->dropForeign(['term_id']);
             $table->dropForeign(['course_id']);
