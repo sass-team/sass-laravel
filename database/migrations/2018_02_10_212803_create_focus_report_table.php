@@ -11,12 +11,11 @@ class CreateFocusReportTable extends Migration
         Schema::create('focus_report', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('report_id')->nullable()->unsigned();
-            $table->foreign('report_id')
-                ->references('id')->on('reports');
-            $table->integer('focus_id')->nullable()->unsigned();
+            $table->integer('report_id')->unsigned();
+            $table->foreign('report_id')->references('id')->on('reports');
+            $table->integer('focus_id')->unsigned();
             $table->foreign('focus_id')->references('id')->on('foci');
-            $table->string('value')->nullable();
+            $table->string('value');
         });
     }
 

@@ -4,14 +4,11 @@ namespace Tests\Feature\Appointments;
 
 use App\Appointment;
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class AppointmentIndexTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     public function an_admin_can_browse_all_appointments()
     {

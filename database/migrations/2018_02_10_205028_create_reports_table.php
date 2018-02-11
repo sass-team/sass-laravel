@@ -16,11 +16,15 @@ class CreateReportsTable extends Migration
             $table->text('student_concerns');
             $table->text('relevant_feedback_or_guidelines');
             $table->text('additional_comments');
-            $table->integer('student_id')->nullable()->unsigned();
+            $table->integer('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('students');
-            $table->integer('appointment_id')->nullable()->unsigned();
+            $table->integer('appointment_id')->unsigned();
             $table->foreign('appointment_id')->references('id')
                 ->on('appointments');
+            $table->integer('creator_id')->unsigned();
+            $table->foreign('creator_id')->references('id')->on('users');
+            $table->integer('modifier_id')->unsigned();
+            $table->foreign('modifier_id')->references('id')->on('users');
         });
     }
 

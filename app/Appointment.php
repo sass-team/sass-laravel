@@ -17,11 +17,6 @@ class Appointment extends Model
         return $this->belongsToMany(Student::class);
     }
 
-    public function creator()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function tutor()
     {
         return $this->belongsTo(User::class);
@@ -45,5 +40,15 @@ class Appointment extends Model
     public function reports()
     {
         return $this->hasMany(Report::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function modifier()
+    {
+        return $this->belongsTo(User::class);
     }
 }

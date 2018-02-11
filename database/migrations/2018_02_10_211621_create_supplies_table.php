@@ -7,35 +7,36 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSuppliesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('supplies', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->string('name');
+            $table->integer('creator_id')->unsigned();
+            $table->foreign('creator_id')->references('id')->on('users');
+            $table->integer('modifier_id')->unsigned();
+            $table->foreign('modifier_id')->references('id')->on('users');
         });
 
-        Supply::query()->insert(['name' => 'Assignment (graded)']);
-        Supply::query()->insert(['name' => 'Draft']);
-        Supply::query()->insert(['name' => "Instructor's feedback"]);
-        Supply::query()->insert(['name' => "Textbook"]);
-        Supply::query()->insert(['name' => "Notes"]);
-        Supply::query()->insert(['name' => "Assignment sheet"]);
-        Supply::query()->insert(['name' => "Exercise on"]);
-        Supply::query()->insert(['name' => "Other"]);
+        $adminId = \App\User::query()
+            ->where('email', 'r.dokollari@gmail.com')
+            ->firstOrFail()->id;
 
+        $templates = [
+            'Assignment (graded)', 'Draft', "Instructor's feedback", 'Textbook',
+            'Notes', 'Assignment sheet', 'Exercise on', 'Other'
+        ];
+
+        foreach ($templates as $template) {
+            Supply::query()->insert([
+                'name'        => $template,
+                'creator_id'  => $adminId,
+                'modifier_id' => $adminId,
+            ]);
+        }
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('supplies');

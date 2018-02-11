@@ -19,6 +19,9 @@ $factory->define(Appointment::class, function (Faker $faker) {
         'creator_id'    => function () {
             return factory(User::class, 'admin')->create()->id;
         },
+        'modifier_id'            => function () {
+            return factory(User::class, 'admin')->create()->id;
+        },
         'course_id'     => function () {
             return factory(Course::class)->create()->id;
         },
@@ -32,7 +35,6 @@ $factory->define(Appointment::class, function (Faker $faker) {
             return factory(Instructor::class)->create()->id;
         },
         'term_id'       => function () {
-
             return factory(Term::class)->create()->id;
         },
     ];

@@ -24,7 +24,7 @@ class CreateStudentsTable extends Migration
             $table->foreign('major_id')->references('id')->on('majors');
             $table->integer('creator_id')->unsigned();
             $table->foreign('creator_id')->references('id')->on('users');
-            $table->integer('modifier_id')->nullable()->unsigned();
+            $table->integer('modifier_id')->unsigned();
             $table->foreign('modifier_id')->references('id')->on('users');
         });
     }

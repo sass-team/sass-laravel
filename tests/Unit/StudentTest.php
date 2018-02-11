@@ -8,13 +8,10 @@ namespace Tests\Unit;
 
 
 use App\Student;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class StudentTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     public function a_student_has_a_name()
     {

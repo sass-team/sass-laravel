@@ -3,13 +3,10 @@
 namespace Tests\Unit\Appointment;
 
 use App\Appointment;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class AppointmentAttributesTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @var  Appointment */
     protected $appointment;
 

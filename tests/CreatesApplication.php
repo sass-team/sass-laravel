@@ -16,6 +16,8 @@ trait CreatesApplication
     {
         $app = require __DIR__.'/../bootstrap/app.php';
 
+        putenv('DB_CONNECTION=testing');
+
         $app->make(Kernel::class)->bootstrap();
 
         Hash::driver('bcrypt')->setRounds(4);

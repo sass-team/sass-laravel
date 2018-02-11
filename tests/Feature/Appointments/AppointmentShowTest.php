@@ -10,13 +10,10 @@ namespace Tests\Feature\Appointments;
 use App\Appointment;
 use App\Report;
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class AppointmentShowTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @var Appointment */
     private $appointment;
 

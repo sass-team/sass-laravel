@@ -8,13 +8,10 @@ namespace tests\Unit;
 
 use App\Instructor;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class InstructorTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     public function an_instructor_has_name()
     {

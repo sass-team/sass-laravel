@@ -15,7 +15,7 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->integer('creator_id')->unsigned();
             $table->foreign('creator_id')->references('id')->on('users');
-            $table->integer('modifier_id')->nullable()->unsigned();
+            $table->integer('modifier_id')->unsigned();
             $table->foreign('modifier_id')->references('id')->on('users');
         });
     }

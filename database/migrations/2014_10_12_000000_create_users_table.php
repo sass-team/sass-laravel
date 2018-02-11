@@ -11,8 +11,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('role', User::$roles);
@@ -23,6 +23,14 @@ class CreateUsersTable extends Migration
             $table->integer('modifier_id')->nullable()->unsigned();
             $table->foreign('modifier_id')->references('id')->on('users');
         });
+
+        User::query()->insert([
+            'first_name' => 'Rizart',
+            'last_name'  => 'Dokollari',
+            'email'      => 'r.dokollari@gmail.com',
+            'password'   => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm',
+            'role'       => 'admin',
+        ]);
     }
 
     public function down()

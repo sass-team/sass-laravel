@@ -1,7 +1,3 @@
- - User
- - Course
- - Appointment
- 
- A. An appointment is created by a user
- B. A user(tutor) belongs to an appointment, and belongs to a user(amdin/tutor)
- 
+### Testing
+1. `php artisan migrate:refresh --database testing`
+1. `./vendor/bin/phpunit`

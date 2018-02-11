@@ -24,5 +24,8 @@ $factory->define(Student::class, function (Faker $faker) {
         'creator_id'             => function () {
             return factory(User::class, 'admin')->create()->id;
         },
+        'modifier_id'            => function () {
+            return factory(User::class, 'admin')->create()->id;
+        },
     ];
 });

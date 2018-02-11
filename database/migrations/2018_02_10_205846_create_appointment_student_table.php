@@ -11,10 +11,10 @@ class CreateAppointmentStudentTable extends Migration
         Schema::create('appointment_student', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->integer('appointment_id')->nullable()->unsigned();
+            $table->integer('appointment_id')->unsigned();
             $table->foreign('appointment_id')
                 ->references('id')->on('appointments');
-            $table->integer('student_id')->nullable()->unsigned();
+            $table->integer('student_id')->unsigned();
             $table->foreign('student_id')
                 ->references('id')->on('students');
         });

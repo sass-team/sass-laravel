@@ -8,16 +8,15 @@ namespace tests\Unit;
 
 use App\Appointment;
 use App\Report;
-use App\SASS\Student\StudentAttributes;
 use App\Student;
+use App\User;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class ReportTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @var  Report */
     private $report;
 
@@ -66,5 +65,17 @@ class ReportTest extends TestCase
         $this->report->student()->associate($student);
 
         $this->assertInstanceOf(Student::class, $this->report->student);
+    }
+
+    /** @test */
+    public function a_report_has_a_creator()
+    {
+        $this->assertInstanceOf(User::class, $this->report->creator);
+    }
+
+    /** @test */
+    public function a_report_has_a_modifier()
+    {
+        $this->assertInstanceOf(User::class, $this->report->modifier);
     }
 }
