@@ -4,7 +4,7 @@
  * @since   2/10/18
  */
 
-namespace tests\Unit;
+namespace Tests\Unit;
 
 use App\Appointment;
 use App\Report;
@@ -17,34 +17,36 @@ use Tests\TestCase;
 
 class ReportTest extends TestCase
 {
-    /** @var  Report */
-    private $report;
+    use HasCreatorAndModifierTests;
+
+    /** @var  Report $model */
+    private $model;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->report = factory(Report::class)->create();
+        $this->model = factory(Report::class)->create();
     }
 
     /** @test */
     public function a_report_has_many_supplies()
     {
         $this
-            ->assertInstanceOf(BelongsToMany::class, $this->report->supplies());
+            ->assertInstanceOf(BelongsToMany::class, $this->model->supplies());
     }
 
     /** @test */
     public function a_report_has_many_foci()
     {
-        $this->assertInstanceOf(BelongsToMany::class, $this->report->foci());
+        $this->assertInstanceOf(BelongsToMany::class, $this->model->foci());
     }
 
     /** @test */
     public function a_report_has_outcomes()
     {
         $this
-            ->assertInstanceOf(BelongsToMany::class, $this->report->outcomes());
+            ->assertInstanceOf(BelongsToMany::class, $this->model->outcomes());
     }
 
     /** @test */
@@ -52,9 +54,9 @@ class ReportTest extends TestCase
     {
         $appointment = factory(Appointment::class)->create();
 
-        $this->report->appointment()->associate($appointment);
+        $this->model->appointment()->associate($appointment);
 
-        $this->assertInstanceOf(Appointment::class, $this->report->appointment);
+        $this->assertInstanceOf(Appointment::class, $this->model->appointment);
     }
 
     /** @test */
@@ -62,20 +64,8 @@ class ReportTest extends TestCase
     {
         $student = factory(Student::class)->create();
 
-        $this->report->student()->associate($student);
+        $this->model->student()->associate($student);
 
-        $this->assertInstanceOf(Student::class, $this->report->student);
-    }
-
-    /** @test */
-    public function a_report_has_a_creator()
-    {
-        $this->assertInstanceOf(User::class, $this->report->creator);
-    }
-
-    /** @test */
-    public function a_report_has_a_modifier()
-    {
-        $this->assertInstanceOf(User::class, $this->report->modifier);
+        $this->assertInstanceOf(Student::class, $this->model->student);
     }
 }

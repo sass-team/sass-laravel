@@ -4,26 +4,35 @@
  * @since   2/10/18
  */
 
-namespace tests\Unit;
+namespace Tests\Unit;
 
 use App\Instructor;
-use Illuminate\Database\Eloquent\Model;
+use App\User;
 use Tests\TestCase;
 
 class InstructorTest extends TestCase
 {
+    use HasCreatorAndModifierTests;
+
+    /** @var  Instructor */
+    private $model;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->model = factory(Instructor::class)->create();
+    }
+
     /** @test */
     public function an_instructor_has_name()
     {
-        /** @var Model $instructor */
-        $instructor = factory(Instructor::class)->create();
-
         $expectedName = sprintf(
             '%s %s',
-            $instructor->first_name,
-            $instructor->last_name
+            $this->model->first_name,
+            $this->model->last_name
 
         );
-        $this->assertEquals($expectedName, $instructor->name);
+        $this->assertEquals($expectedName, $this->model->name);
     }
 }

@@ -8,6 +8,7 @@ namespace Tests\Unit;
 
 
 use App\Student;
+use App\User;
 use Tests\TestCase;
 
 class StudentTest extends TestCase

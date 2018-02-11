@@ -3,11 +3,12 @@
 namespace App;
 
 use App\SASS\Appointment\AppointmentAttributes as HasAttributes;
+use App\SASS\HasCreatorAndModifier;
 use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    use HasAttributes;
+    use HasAttributes, HasCreatorAndModifier;
 
     protected $dates = ['created_at', 'updated_at', 'starts_at', 'ends_at'];
     protected $fillable = ['starts_at', 'ends_at', 'notes'];
@@ -40,15 +41,5 @@ class Appointment extends Model
     public function reports()
     {
         return $this->hasMany(Report::class);
-    }
-
-    public function creator()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function modifier()
-    {
-        return $this->belongsTo(User::class);
     }
 }

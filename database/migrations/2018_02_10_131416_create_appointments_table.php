@@ -27,20 +27,20 @@ class CreateAppointmentsTable extends Migration
             $table->integer('term_id')->unsigned();
             $table->foreign('term_id')->references('id')->on('terms');
             $table->integer('course_id')->unsigned();
-            $table->foreign('course_id')->references('id')->on('terms');
+            $table->foreign('course_id')->references('id')->on('courses');
         });
     }
 
     public function down()
     {
         Schema::table('appointments', function (Blueprint $table) {
+            $table->dropForeign(['modifier_id']);
             $table->dropForeign(['creator_id']);
             $table->dropForeign(['tutor_id']);
             $table->dropForeign(['student_id']);
             $table->dropForeign(['instructor_id']);
             $table->dropForeign(['term_id']);
             $table->dropForeign(['course_id']);
-            $table->dropForeign(['modifier_id']);
         });
 
         Schema::dropIfExists('appointments');

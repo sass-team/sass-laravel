@@ -2,21 +2,14 @@
 
 namespace Tests;
 
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Support\Facades\Hash;
 
 trait CreatesApplication
 {
-    /**
-     * Creates the application.
-     *
-     * @return \Illuminate\Foundation\Application
-     */
     public function createApplication()
     {
-        $app = require __DIR__.'/../bootstrap/app.php';
-
-        putenv('DB_CONNECTION=testing');
+        $app = require __DIR__ . '/../bootstrap/app.php';
 
         $app->make(Kernel::class)->bootstrap();
 

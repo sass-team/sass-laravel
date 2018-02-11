@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\SASS\HasCreatorAndModifier;
 use App\SASS\User\UserAttributes as HasAttributes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -9,7 +10,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens, HasAttributes;
+    use Notifiable, HasApiTokens, HasAttributes, HasCreatorAndModifier;
 
     static $roles = ['admin', 'secretary', 'tutor'];
 

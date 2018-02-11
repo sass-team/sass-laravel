@@ -32,8 +32,8 @@ class AppointmentAttributesTest extends TestCase
     /** @test */
     public function an_appointment_has_path()
     {
-        $expectedLink = '/appointments/' . $this->appointment->id;
+        $expectedPath = '/appointments/' . $this->appointment->id;
 
-        $this->assertEquals($expectedLink, $this->appointment->path);
+        $this->assertEquals($expectedPath, $this->appointment->path);
     }
 }

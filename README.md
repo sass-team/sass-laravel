@@ -1,3 +1,4 @@
 ### Testing
-1. `php artisan migrate:refresh --database testing`
-1. `./vendor/bin/phpunit`
+ `./vendor/bin/phpunit` - Setup a new fresh migration, and use 
+ database transactions for blazing speed. For PHPStorm, remember to
+ use the phpunit.xml configuration in your test suites.

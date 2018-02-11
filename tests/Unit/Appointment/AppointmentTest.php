@@ -11,34 +11,37 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
+use Tests\Unit\HasCreatorAndModifierTests;
 
 class AppointmentTest extends TestCase
 {
+    use HasCreatorAndModifierTests;
+
     /** @var  Appointment */
-    protected $appointment;
+    protected $model;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->appointment = factory(Appointment::class)->create();
+        $this->model = factory(Appointment::class)->create();
     }
 
     /** @test */
     public function an_appointment_has_a_course()
     {
-        $this->assertInstanceOf(Course::class, $this->appointment->course);
+        $this->assertInstanceOf(Course::class, $this->model->course);
     }
 
     /** @test */
     public function an_appointment_has_many_students()
     {
         $this->assertInstanceOf(
-            BelongsToMany::class, $this->appointment->students()
+            BelongsToMany::class, $this->model->students()
         );
 
         $this->assertInstanceOf(
-            Collection::class, $this->appointment->students
+            Collection::class, $this->model->students
         );
     }
 
@@ -46,41 +49,29 @@ class AppointmentTest extends TestCase
     public function an_appoint_has_an_instructor()
     {
         $this->assertInstanceOf(
-            Instructor::class, $this->appointment->instructor
+            Instructor::class, $this->model->instructor
         );
     }
 
     /** @test */
     public function an_appointment_has_a_tutor()
     {
-        $this->assertInstanceOf(User::class, $this->appointment->tutor);
+        $this->assertInstanceOf(User::class, $this->model->tutor);
     }
 
     /** @test */
     public function an_appointment_has_a_term()
     {
-        $this->assertInstanceOf(Term::class, $this->appointment->term);
+        $this->assertInstanceOf(Term::class, $this->model->term);
     }
 
     /** @test */
     public function an_appointment_has_many_reports()
     {
-        $this->assertInstanceOf(HasMany::class, $this->appointment->reports());
+        $this->assertInstanceOf(HasMany::class, $this->model->reports());
 
         $this->assertInstanceOf(
-            Collection::class, $this->appointment->reports
+            Collection::class, $this->model->reports
         );
-    }
-
-    /** @test */
-    public function an_appointment_has_a_creator()
-    {
-        $this->assertInstanceOf(User::class, $this->appointment->creator);
-    }
-
-    /** @test */
-    public function an_appointment_has_a_modifier()
-    {
-        $this->assertInstanceOf(User::class, $this->appointment->modifier);
     }
 }
